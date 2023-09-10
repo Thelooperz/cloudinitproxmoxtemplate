@@ -1,0 +1,9 @@
+----------------- COMOT AJA BANG ----------------------
+
+virt-customize --install qemu-guest-agent -a < IMAGE LOCATION >
+qm create VM-ID --name "< NAME FOR TEMPLATE >" --memory 4096 --cores 2 --sockets 2 --net0 virtio,bridge=vmbr0 --scsihw virtio-scsi-pci
+qm importdisk VM-ID < IMAGE LOCATION > < STORAGE LOCATION > -format qcow2
+qm set VM-ID --scsihw virtio-scsi-pci --scsi0 < DISK LOCATION >
+qm set VM-ID --ide2 < CLOUD-INIT STORAGE LOCATION > --boot c --bootdisk scsi0 --serial0 socket --vga serial0
+qm resize VM-ID scsi0 <SIZE>G
+qm template VM-ID
